@@ -33,19 +33,8 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
-
-      - name: Install NPM dependencies and build
-        run: |
-          npm install
-          npm run build
 
       - name: Run Laravel commands
         run: |
