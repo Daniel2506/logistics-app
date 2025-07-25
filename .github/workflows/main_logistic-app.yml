@@ -33,15 +33,6 @@ jobs:
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader
-
-      - name: Run Laravel commands
-        run: |
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
