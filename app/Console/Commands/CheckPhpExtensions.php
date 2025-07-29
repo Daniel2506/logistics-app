@@ -25,7 +25,7 @@ class CheckPhpExtensions extends Command
      */
     public function handle()
     {
-        $required = ['zip', 'xml', 'gd', 'mbstring', 'fileinfo'];
+        $required = ['zip', 'xml', 'gd', 'mbstring', 'fileinfo','xx'];
 
         foreach ($required as $value) {
             # code...

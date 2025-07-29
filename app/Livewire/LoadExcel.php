@@ -8,18 +8,27 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\TarifarioImport;
 use App\Imports\TarifarioSheetImport;
 use App\Models\Agente;
+use Livewire\Attributes\Validate;
 
 class LoadExcel extends Component
 {
     use WithFileUploads;
 
+    #[Validate('file|mimes:xlsx,xls|max:10240')]
     public $fileXls;
+    
     public $agente = 0;
     public $agentes;
     public function render()
     {   
         $this->agentes = Agente::all();
         return view('livewire.load-excel');
+    }
+    public function updatedFileXls()
+    {
+        $this->validate([
+            'fileXls' => 'required|file|mimes:xlsx,xls|max:10240',
+        ]);
     }
 
     public function clickImport()
@@ -28,16 +37,5 @@ class LoadExcel extends Component
         // $import->onlySheets('Worksheet 1', 'Worksheet 3');
 
         Excel::import($import, $this->fileXls);
-
-        // $collect = Excel::toArray(new TarifarioSheetImport, $this->fileXls);
-        // dd($collect);
-        // foreach ($collect as $fila) { 
-        //         dd($fila); // Mostrar el contenido de la celda
-
-        //     foreach ($fila as $celda) { // Recorrer cada celda dentro de la fila
-        //         dd($celda); // Mostrar el contenido de la celda
-        //     }
-        // }
-        // dd($this->fileXls, $collect);
     }
 }
