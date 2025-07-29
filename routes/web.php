@@ -17,7 +17,7 @@ Route::view('dashboard', 'dashboard')
 
 Route::get('/gastodestino', Gastodestino::class)->name('gastodestino');
 
-Route::get('phpinfo', function(){
+Route::get('/phpinfo', function(){
     phpinfo();
 });
 Route::middleware(['auth'])->group(function () {
